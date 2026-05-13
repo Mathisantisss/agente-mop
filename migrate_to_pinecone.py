@@ -22,7 +22,7 @@ BATCH_SIZE = 100
 
 # Leer configuracion del proyecto
 try:
-    from config import COLLECTION_NAME, CHROMA_PATH
+    from mop_config import COLLECTION_NAME, CHROMA_PATH
 except ImportError:
     COLLECTION_NAME = "mop_manual"
     CHROMA_PATH = "./chroma_db"

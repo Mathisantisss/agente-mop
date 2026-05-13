@@ -16,7 +16,7 @@ try:
 except ImportError:
     pass
 
-from config import ANTHROPIC_MODEL, REPORTS_DIR, MODELOS, MODELOS_GROQ, GROQ_MODEL_DEFAULT
+from mop_config import ANTHROPIC_MODEL, REPORTS_DIR, MODELOS, MODELOS_GROQ, GROQ_MODEL_DEFAULT
 from agent import (
     TOOLS, SYSTEM_PROMPT, dispatch_tool,
     listar_volumenes, verificar_base_datos,

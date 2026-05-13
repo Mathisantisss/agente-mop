@@ -54,7 +54,7 @@ def _init_recursos_compartidos():
     """
     import chromadb
     from custom_embeddings import FastEmbedFunction
-    from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
+    from mop_config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
 
     embedding_fn = FastEmbedFunction(model_name=EMBEDDING_MODEL)
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
@@ -463,7 +463,7 @@ def _detectar_archivos_en_texto(texto: str) -> list[str]:
     antiguos del historial que no guardaron el campo 'archivos'.
     """
     try:
-        from config import REPORTS_DIR
+        from mop_config import REPORTS_DIR
     except Exception:
         return []
     encontrados = []
@@ -715,7 +715,7 @@ def _procesar(consulta: str):
                 else:
                     # Fallback: intentar como ruta relativa a REPORTS_DIR
                     try:
-                        from config import REPORTS_DIR
+                        from mop_config import REPORTS_DIR
                         alt = REPORTS_DIR / p.name
                         if alt.exists():
                             if str(alt) not in st.session_state.archivos:

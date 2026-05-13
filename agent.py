@@ -30,7 +30,7 @@ from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
 
-from config import (
+from mop_config import (
     ANTHROPIC_MODEL,
     CHROMA_DIR,
     COLLECTION_NAME,

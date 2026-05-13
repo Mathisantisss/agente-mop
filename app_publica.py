@@ -11,7 +11,7 @@ except ImportError:
     pass
 
 from groq import Groq
-from config import REPORTS_DIR
+from mop_config import REPORTS_DIR
 from agent import generar_excel, generar_reporte
 from local_agent import buscar_contexto, construir_prompt_con_contexto, detectar_solicitud_archivo
 

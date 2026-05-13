@@ -13,7 +13,7 @@ from typing import Optional
 
 import chromadb
 from custom_embeddings import FastEmbedFunction
-from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
+from mop_config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
 
 CACHE_FILE = Path(__file__).parent / "signs_cache.json"
 

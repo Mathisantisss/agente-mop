@@ -15,7 +15,7 @@ except ImportError:
 
 # Configuracion del proyecto
 try:
-    from config import EMBEDDING_MODEL, COLLECTION_NAME, TOP_K
+    from mop_config import EMBEDDING_MODEL, COLLECTION_NAME, TOP_K
 except ImportError:
     EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
     COLLECTION_NAME = "mop_manual"

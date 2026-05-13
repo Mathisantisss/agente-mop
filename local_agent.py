@@ -10,7 +10,7 @@ from pathlib import Path
 import chromadb
 from custom_embeddings import FastEmbedFunction
 
-from config import (
+from mop_config import (
     CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL, TOP_K,
 )
 

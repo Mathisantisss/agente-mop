@@ -5,7 +5,7 @@ Uso:
 """
 from pathlib import Path
 import chromadb
-from config import CHROMA_DIR, COLLECTION_NAME, REPORTS_DIR
+from mop_config import CHROMA_DIR, COLLECTION_NAME, REPORTS_DIR
 
 LOG = Path(__file__).parent / "ingest_log.txt"
 

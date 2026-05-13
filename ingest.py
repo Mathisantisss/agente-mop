@@ -15,7 +15,7 @@ import chromadb
 import pypdfium2 as pdfium
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
-from config import (
+from mop_config import (
     CHUNK_OVERLAP,
     CHUNK_SIZE,
     CHROMA_DIR,
