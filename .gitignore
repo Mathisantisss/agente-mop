@@ -1,0 +1,98 @@
+# ─────────────────────────────────────────────────────────────────
+# SENSITIVE — Nunca subir
+# ─────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+.streamlit/secrets.toml
+*.key
+*.pem
+
+# ─────────────────────────────────────────────────────────────────
+# Archivos pesados que NO van al repo
+# ─────────────────────────────────────────────────────────────────
+# Modelos de Ollama / Llama locales (4 GB+) — solo para el agente local
+modelos_locales/
+
+# PDFs originales del manual (ya vectorizados en chroma_db)
+manuales/
+
+# Archivos generados por usuarios (se regeneran solos en runtime)
+reportes/*.xlsx
+reportes/*.docx
+reportes/*.pdf
+!reportes/.gitkeep
+
+# NOTA: chroma_db/ SÍ va al repo (vía Git LFS para el archivo grande)
+# Si después migras a Pinecone, descomenta la siguiente línea:
+# chroma_db/
+
+# ─────────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+
+# ─────────────────────────────────────────────────────────────────
+# IDE / Sistema
+# ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────────────────────────────────────────
+# Logs y temporales
+# ─────────────────────────────────────────────────────────────────
+*.log
+*_log.txt
+*_err.txt
+ingest_log.txt
+ingest_err.txt
+streamlit_log.txt
+streamlit_err.txt
+publica_log.txt
+publica_err.txt
+indep_log.txt
+indep_err.txt
+anth_log.txt
+anth_err.txt
+
+# Scripts de prueba / diagnostico (no van a produccion)
+test_*.py
+diag_*.py
+
+# Cache de Streamlit
+.streamlit/cache/
+
+# Cache de embeddings descargados (se regenera)
+.cache/
+.sentence_transformers/

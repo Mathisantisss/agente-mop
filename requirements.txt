@@ -1,0 +1,21 @@
+# Agente MOP — Dependencias para Streamlit Cloud
+# Pinned a versiones probadas en desarrollo
+
+# Framework web
+streamlit==1.57.0
+
+# Anthropic API
+anthropic==0.100.0
+
+# Base vectorial y embeddings
+chromadb==1.5.9
+sentence-transformers==5.4.1
+
+# Generación de documentos
+openpyxl==3.1.5
+python-docx==1.2.0
+reportlab==4.5.1
+
+# Utilidades
+python-dotenv==1.2.2
+rich>=13.0.0

@@ -1,0 +1,8 @@
+anthropic>=0.92.0
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+openpyxl>=3.1.0
+python-docx>=1.1.0
+rich>=13.0.0
+groq>=1.0.0
+pinecone-client>=3.0.0
