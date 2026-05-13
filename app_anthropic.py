@@ -53,10 +53,23 @@ def _init_recursos_compartidos():
     por proceso de Streamlit, compartido entre todas las sesiones.
     """
     import chromadb
-    from custom_embeddings import FastEmbedFunction
+    from custom_embeddings import FastEmbedFunction, embed_texts
     from mop_config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
 
     embedding_fn = FastEmbedFunction(model_name=EMBEDDING_MODEL)
+
+    # ─── PRE-WARM CRITICO ───
+    # fastembed carga el modelo ONNX LAZY (en la primera llamada).
+    # Si lo dejamos para la primera consulta del usuario, el spike de
+    # ~150 MB ocurre mientras Claude tambien esta consumiendo memoria
+    # = OOM y crash silencioso ("la pregunta desaparece").
+    # Forzar la carga AHORA, durante el spinner de inicializacion.
+    try:
+        embed_texts(["warmup"])
+    except Exception as e:
+        # No bloquear el arranque si el warmup falla; logueamos y seguimos.
+        print(f"[warmup] Pre-carga de fastembed fallo: {e}")
+
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
     collection = client.get_or_create_collection(
         name=COLLECTION_NAME,
