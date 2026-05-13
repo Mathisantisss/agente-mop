@@ -11,9 +11,10 @@ anthropic==0.100.0
 chromadb==1.5.9
 sentence-transformers==5.4.1
 
-# ⚠️ Fix obligatorio para que chromadb funcione en Streamlit Cloud:
-# protobuf 5.x rompe los _pb2 generados por opentelemetry (dependencia de chromadb).
-# Pinear a 4.x es el fix oficial recomendado por la comunidad chromadb.
+# ⚠️ Fix obligatorio: transformers>=4.45 importa torchvision a la fuerza
+# aunque no usemos visión. Pineamos a una versión anterior estable.
+transformers>=4.41.0,<4.45.0
+# Fix protobuf para chromadb + opentelemetry
 protobuf>=4.25.3,<5.0.0
 
 # Generación de documentos
