@@ -17,6 +17,15 @@ import re
 import hmac
 from pathlib import Path
 
+# ─── Configuracion previa a imports pesados ───
+# Deshabilitar telemetria de ChromaDB y forzar implementacion pure-python de
+# protobuf evita el TypeError "Descriptors cannot be created directly" que
+# ocurre cuando el opentelemetry exporter de chromadb se topa con protobuf
+# generated code incompatible (problema clasico en Streamlit Cloud).
+os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+os.environ.setdefault("CHROMA_TELEMETRY_IMPL", "none")
+os.environ.setdefault("PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION", "python")
+
 import streamlit as st
 import anthropic
 
