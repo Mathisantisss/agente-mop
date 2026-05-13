@@ -53,10 +53,10 @@ def _init_recursos_compartidos():
     por proceso de Streamlit, compartido entre todas las sesiones.
     """
     import chromadb
-    from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+    from custom_embeddings import FastEmbedFunction
     from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
 
-    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
+    embedding_fn = FastEmbedFunction(model_name=EMBEDDING_MODEL)
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
     collection = client.get_or_create_collection(
         name=COLLECTION_NAME,

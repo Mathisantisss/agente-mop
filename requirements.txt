@@ -1,5 +1,5 @@
 # Agente MOP — Dependencias para Streamlit Cloud
-# Pinned a versiones probadas en desarrollo
+# Versión optimizada para Free Tier (1 GB RAM)
 
 # Framework web
 streamlit==1.57.0
@@ -7,13 +7,18 @@ streamlit==1.57.0
 # Anthropic API
 anthropic==0.100.0
 
-# Base vectorial y embeddings
+# Base vectorial
 chromadb==1.5.9
-sentence-transformers==5.4.1
 
-# ⚠️ Fix obligatorio: transformers>=4.45 importa torchvision a la fuerza
-# aunque no usemos visión. Pineamos a una versión anterior estable.
-transformers>=4.41.0,<4.45.0
+# ⚠️ Embeddings con fastembed (ONNX, ~150 MB) en lugar de
+# sentence-transformers + PyTorch (~700 MB). Misma calidad,
+# mucho menos memoria — esencial para Streamlit Cloud Free Tier.
+# ⚠️ Pineamos fastembed==0.5.1 — versiones >=0.6 cambiaron el pooling
+# (mean pooling) y producirian embeddings INCOMPATIBLES con los que
+# tenemos en ChromaDB (indexados con sentence-transformers).
+fastembed==0.5.1
+onnxruntime>=1.18.0
+
 # Fix protobuf para chromadb + opentelemetry
 protobuf>=4.25.3,<5.0.0
 

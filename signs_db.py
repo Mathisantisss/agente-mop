@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Optional
 
 import chromadb
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+from custom_embeddings import FastEmbedFunction
 from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
 
 CACHE_FILE = Path(__file__).parent / "signs_cache.json"
@@ -65,7 +65,7 @@ _collection = None
 def _get_collection():
     global _collection
     if _collection is None:
-        embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
+        embedding_fn = FastEmbedFunction(model_name=EMBEDDING_MODEL)
         client = chromadb.PersistentClient(path=str(CHROMA_DIR))
         _collection = client.get_or_create_collection(
             COLLECTION_NAME, embedding_function=embedding_fn,

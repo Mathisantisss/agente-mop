@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 import chromadb
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+from custom_embeddings import FastEmbedFunction
 
 from config import (
     CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL, TOP_K,
@@ -36,7 +36,7 @@ _collection = None
 def get_collection():
     global _collection
     if _collection is None:
-        embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
+        embedding_fn = FastEmbedFunction(model_name=EMBEDDING_MODEL)
         client = chromadb.PersistentClient(path=str(CHROMA_DIR))
         _collection = client.get_or_create_collection(
             name=COLLECTION_NAME,
