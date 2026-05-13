@@ -38,6 +38,46 @@ except ImportError:
 
 from agent import TOOLS, dispatch_tool
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CACHE GLOBAL DE RECURSOS PESADOS
+# ─────────────────────────────────────────────────────────────────────────────
+# CRITICO en Streamlit Cloud Free Tier (1 GB RAM): sin esta cache,
+# cada sesion de usuario recarga el modelo de embeddings (~250 MB en RAM)
+# y la app crashea por OOM. El sintoma es exactamente "las preguntas
+# desaparecen al segundo" porque Streamlit reinicia el proceso silenciosamente.
+@st.cache_resource(show_spinner="🔄 Inicializando base de conocimiento (primera vez)...")
+def _init_recursos_compartidos():
+    """
+    Inicializa ChromaDB collection + modelo de embeddings UNA SOLA VEZ
+    por proceso de Streamlit, compartido entre todas las sesiones.
+    """
+    import chromadb
+    from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+    from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL
+
+    embedding_fn = SentenceTransformerEmbeddingFunction(model_name=EMBEDDING_MODEL)
+    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    collection = client.get_or_create_collection(
+        name=COLLECTION_NAME,
+        embedding_function=embedding_fn,
+        metadata={"hnsw:space": "cosine"},
+    )
+
+    # Inyectar la collection ya inicializada en los modulos que la consumen,
+    # asi sus get_collection() respectivos no la vuelven a crear.
+    import agent
+    import local_agent
+    try:
+        import signs_db
+        signs_db._collection = collection
+    except Exception:
+        pass
+    agent._collection = collection
+    local_agent._collection = collection
+
+    return collection
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CONFIG
 # ─────────────────────────────────────────────────────────────────────────────
@@ -742,6 +782,10 @@ def main():
     # 0. Login obligatorio si APP_PASSWORD está configurado
     if not _check_password():
         return
+
+    # 0.5. Inicializar (o reutilizar de cache) los recursos pesados
+    # de ChromaDB + embedding model. Esto evita OOM en Streamlit Cloud.
+    _init_recursos_compartidos()
 
     _init()
     _sidebar()

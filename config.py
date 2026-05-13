@@ -10,7 +10,7 @@ REPORTS_DIR.mkdir(exist_ok=True)
 EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 CHUNK_SIZE = 800
 CHUNK_OVERLAP = 150
-TOP_K = 5
+TOP_K = 4  # bajamos de 5 a 4 para reducir memoria por consulta en Streamlit Cloud Free
 COLLECTION_NAME = "mop_manual"
 
 # Modelos Anthropic
